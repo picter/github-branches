@@ -1,8 +1,9 @@
 const inquirer = require('inquirer');
 const GitHubApi = require('github')
 const fs = require('fs');
+const os = require('os');
 
-const token = fs.readFileSync('./.token', { encoding: 'utf8' });
+const token = fs.readFileSync(`${os.homedir()}/.ghb`, { encoding: 'utf8' });
 const package = JSON.parse(fs.readFileSync(`${process.cwd()}/package.json`, { encoding: 'utf8' }));
 
 const [, owner, repo] = package.repository.match(/(.*)\/(.*)$/);
