@@ -1,3 +1,5 @@
+const git = require('simple-git/promise')();
+const slug = require('slug');
 const inquirer = require('inquirer');
 const GitHubApi = require('github')
 const fs = require('fs');
@@ -40,7 +42,7 @@ async function startCli() {
     .filter(issue => issue.pull_request === undefined) // get rid of pull requests
     .map(issue => ({
       name: `#${issue.number}: ${issue.title}`,
-      value: issue.number,
+      value: `${issue.number} ${issue.title}`,
       pull_request: issue.pull_request,
     }));
 
@@ -54,7 +56,18 @@ async function startCli() {
         choices: issues
       }
     ]);
-  console.log(answers);
+
+    const branches = await git.branch();
+    const newBranchName = slug(answers.issue);
+    const issueNumber = newBranchName.split('-')[0];
+    const existingBranch = branches.all.find(branchName => branchName.startsWith(`${issueNumber}-`));
+    if (existingBranch) {
+      console.log(`There's already a branch for issue #${issueNumber}. I'm checking it out.`);
+      await git.checkout(existingBranch);
+    } else {
+      await git.checkoutBranch(slug(answers.issue).toLowerCase(), 'master');
+      console.log(`Checked out a new branch for issue #${issueNumber}, starting from master.`);
+    }
 }
 
 startCli();
