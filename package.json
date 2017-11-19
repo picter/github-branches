@@ -2,6 +2,7 @@
   "name": "github-branches",
   "version": "1.0.0",
   "description": "Simple cli for issue-branch-pull-request workflows",
+  "repository": "picter/github-branches",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
