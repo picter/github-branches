@@ -5,8 +5,8 @@ const os = require('os');
 
 const token = fs.readFileSync(`${os.homedir()}/.ghb`, { encoding: 'utf8' });
 const package = JSON.parse(fs.readFileSync(`${process.cwd()}/package.json`, { encoding: 'utf8' }));
-
-const [, owner, repo] = package.repository.match(/(.*)\/(.*)$/);
+console.log(package.repository);
+const [, owner, repo] = String(package.repository).match(/(.*)\/(.*)$/);
 
 console.log(`Current repository: ${owner}/${repo}`);
 
