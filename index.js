@@ -3,6 +3,11 @@ const GitHubApi = require('github')
 const fs = require('fs');
 
 const token = fs.readFileSync('./.token', { encoding: 'utf8' });
+const package = JSON.parse(fs.readFileSync(`${process.cwd()}/package.json`, { encoding: 'utf8' }));
+
+const [, owner, repo] = package.repository.match(/(.*)\/(.*)$/);
+
+console.log(`Current repository: ${owner}/${repo}`);
 
 var github = new GitHubApi({
    // optional
@@ -26,8 +31,8 @@ github.authenticate({
 async function startCli() {
   // request for issues
   const request = await github.issues.getForRepo({ 
-    owner: 'picter',
-    repo: 'rest-api',
+    owner,
+    repo,
     state: 'open',
   });
 
