@@ -7,6 +7,8 @@
   "license": "MIT",
   "dependencies": {
     "github": "^12.0.3",
-    "inquirer": "^4.0.0"
+    "inquirer": "^4.0.0",
+    "simple-git": "^1.82.0",
+    "slug": "^0.9.1"
   }
 }
