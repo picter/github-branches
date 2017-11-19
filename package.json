@@ -1,0 +1,11 @@
+{
+  "name": "github-branches",
+  "version": "1.0.0",
+  "description": "Simple cli for issue-branch-pull-request workflows",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "github": "^12.0.3",
+    "inquirer": "^4.0.0"
+  }
+}
